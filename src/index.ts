@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { HTTP_STATUS } from "./config/http.config";
 import { env } from "./config/env.config";
+import { errorHandler } from "./middleware/error-handler.middleware";
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.get("/health", (req: Request, res: Response) => {
     status: "Ok",
   });
 });
+
+app.use(errorHandler);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(HTTP_STATUS.OK).json({
