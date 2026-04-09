@@ -34,6 +34,12 @@ export const getAuth = () => {
       database: {
         generateId: false,
       },
+      cookiePrefix: "printify",
+      cookies: {
+        session_token: {
+          name: "printify_session_token",
+        },
+      },
     },
   });
 };
