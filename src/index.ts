@@ -6,6 +6,7 @@ import { HTTP_STATUS } from "./config/http.config";
 import { env } from "./config/env.config";
 import { errorHandler } from "./middleware/error-handler.middleware";
 import { asyncHandler } from "./middleware/async-handler.middleware";
+import { connectDB } from "./config/db.config";
 
 const app = express();
 
@@ -41,5 +42,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.listen(env.PORT, async () => {
+  await connectDB();
   console.log(`Server running on port ${env.PORT} in ${env.NODE_ENV} mode`);
 });
