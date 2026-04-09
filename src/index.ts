@@ -21,7 +21,7 @@ app.use(
 
 app.get("/health", (req: Request, res: Response) => {
   res.status(HTTP_STATUS.OK).json({
-    message: "Server is health",
+    message: "Server is healthy",
     status: "Ok",
   });
 });
