@@ -30,5 +30,10 @@ export const getAuth = () => {
         clientSecret: env.GOOGLE_CLIENT_SECRET,
       },
     },
+    advanced: {
+      database: {
+        generateId: false,
+      },
+    },
   });
 };
