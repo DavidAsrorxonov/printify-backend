@@ -3,6 +3,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import mongoose from "mongoose";
 import { env } from "../config/env.config";
 import { hashVal, verifyVal } from "../utils/bcrypt";
+import { openAPI, jwt } from "better-auth/plugins";
 
 export const getAuth = () => {
   if (!mongoose.connection.db) {
@@ -41,5 +42,6 @@ export const getAuth = () => {
         },
       },
     },
+    plugins: [openAPI(), jwt()],
   });
 };
