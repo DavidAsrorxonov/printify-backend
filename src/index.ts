@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { HTTP_STATUS } from "./config/http.config";
 import { env } from "./config/env.config";
 import { errorHandler } from "./middleware/error-handler.middleware";
+import { asyncHandler } from "./middleware/async-handler.middleware";
 
 const app = express();
 
@@ -20,12 +21,15 @@ app.use(
   }),
 );
 
-app.get("/health", (req: Request, res: Response) => {
-  res.status(HTTP_STATUS.OK).json({
-    message: "Server is healthy",
-    status: "Ok",
-  });
-});
+app.get(
+  "/health",
+  asyncHandler(async (req: Request, res: Response) => {
+    res.status(HTTP_STATUS.OK).json({
+      message: "Server is healthy",
+      status: "Ok",
+    });
+  }),
+);
 
 app.use(errorHandler);
 
