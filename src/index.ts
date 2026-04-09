@@ -26,6 +26,13 @@ app.get("/health", (req: Request, res: Response) => {
   });
 });
 
+app.get("/", (req: Request, res: Response) => {
+  res.status(HTTP_STATUS.OK).json({
+    message: "Welcome to Printify API",
+    status: "Ok",
+  });
+});
+
 app.listen(env.PORT, async () => {
   console.log(`Server running on port ${env.PORT} in ${env.NODE_ENV} mode`);
 });
