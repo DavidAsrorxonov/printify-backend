@@ -1,0 +1,20 @@
+POST http://localhost:3001/api/auth/sign-up/email
+Content-Type: application/json
+{
+    "name": "Bily",
+  "email": "billy@gmail.com",
+  "password": "12345678",
+  "image": "",
+  "callbackURL": "",
+  "rememberMe": true
+}
+
+POST http://localhost:3001/api/auth/sign-in/email
+Content-Type: application/json
+
+{
+    "email": "example@gmail.com",
+    "password": "12345678"
+}
+
+POST http://localhost:3001/api/auth/sign-out
