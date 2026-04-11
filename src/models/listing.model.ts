@@ -1,4 +1,5 @@
 import mongoose, { Document } from "mongoose";
+import slugify from "slugify";
 
 export interface ListingDocument extends Document {
   userId: string;
@@ -40,6 +41,7 @@ const listingSchema = new mongoose.Schema<ListingDocument>(
     slug: {
       type: String,
       unique: true,
+      required: true,
     },
     title: {
       type: String,
@@ -69,3 +71,17 @@ const listingSchema = new mongoose.Schema<ListingDocument>(
     timestamps: true,
   },
 );
+
+listingSchema.pre("save", function () {
+  if (this.isNew) {
+    this.slug =
+      slugify(this.title, {
+        lower: true,
+        strict: true,
+      }) +
+      "-" +
+      Date.now();
+  }
+});
+
+const Listing = mongoose.model<ListingDocument>("Listing", listingSchema);
