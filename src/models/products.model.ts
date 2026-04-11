@@ -35,27 +35,67 @@ export interface ProductDocument extends Document {
   updatedAt: Date;
 }
 
-const productSchema = new mongoose.Schema<ProductDocument>({
-  type: {
-    type: String,
-    enum: [ProductType.TSHIRT, ProductType.HOODIE],
-    required: true,
+const productSchema = new mongoose.Schema<ProductDocument>(
+  {
+    type: {
+      type: String,
+      enum: [ProductType.TSHIRT, ProductType.HOODIE],
+      required: true,
+    },
+    template: {
+      type: Boolean,
+      default: false,
+    },
+    section: {
+      type: String,
+      enum: Section,
+      default: Section.CATALOG,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    body: {
+      type: String,
+      required: true,
+    },
+    displayUrl: {
+      type: String,
+      required: true,
+    },
+    basePrice: {
+      type: Number,
+      default: undefined,
+    },
+    sizes: {
+      type: [String],
+      enum: SIZE_OPTIONS,
+      default: undefined,
+    },
+    baseUrl: {
+      type: String,
+      default: undefined,
+    },
+    printableArea: {
+      top: {
+        type: Number,
+      },
+      left: {
+        type: Number,
+      },
+      width: {
+        type: Number,
+      },
+      height: {
+        type: Number,
+      },
+    },
   },
-  template: {
-    type: Boolean,
-    default: false,
+  {
+    timestamps: true,
   },
-  section: {
-    type: String,
-    enum: Section,
-    default: Section.CATALOG,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  body: {
-    type: String,
-    required: true,
-  },
-});
+);
+
+const Product = mongoose.model<ProductDocument>("Product", productSchema);
+
+export default Product;
