@@ -85,3 +85,5 @@ listingSchema.pre("save", function () {
 });
 
 const Listing = mongoose.model<ListingDocument>("Listing", listingSchema);
+
+export default Listing;
