@@ -9,6 +9,7 @@ import { asyncHandler } from "./middleware/async-handler.middleware";
 import { connectDB } from "./config/db.config";
 import { toNodeHandler } from "better-auth/node";
 import { getAuth } from "./lib/auth";
+import routes from "./routes";
 
 const app = express();
 
@@ -38,6 +39,8 @@ app.get(
     });
   }),
 );
+
+app.use("/api", routes);
 
 app.use(errorHandler);
 
