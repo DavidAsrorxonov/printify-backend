@@ -1,6 +1,21 @@
-import { ErrorRequestHandler } from "express";
+import { ErrorRequestHandler, Response } from "express";
+import { ZodError } from "zod";
 import { HTTP_STATUS } from "../config/http.config";
 import { AppError } from "../utils/app-error";
+import { ErrorCodes } from "../config/http-error-codes.config";
+
+const formatZodError = (res: Response, error: ZodError) => {
+  const errors = error?.issues?.map((issue) => ({
+    field: issue.path.join("."),
+    message: issue.message,
+  }));
+
+  return res.status(HTTP_STATUS.BAD_REQUEST).json({
+    message: "Validation Error",
+    errors: errors,
+    errorCode: ErrorCodes.ERR_VALIDATION_ERROR,
+  });
+};
 
 export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   console.log(`Error occured: ${req.path}`, error);
