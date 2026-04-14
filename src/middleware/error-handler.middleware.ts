@@ -26,6 +26,10 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
     });
   }
 
+  if (error instanceof ZodError) {
+    formatZodError(res, error);
+  }
+
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
       message: error.message,
