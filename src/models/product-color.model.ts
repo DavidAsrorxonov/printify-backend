@@ -1,7 +1,7 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface ProductColorDocument extends Document {
-  templateId: mongoose.Schema.Types.ObjectId;
+  templateId: mongoose.Types.ObjectId;
   name: string;
   color: string;
   mockupUrl: string;
@@ -12,7 +12,7 @@ export interface ProductColorDocument extends Document {
 const productColorSchema = new mongoose.Schema<ProductColorDocument>(
   {
     templateId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Product",
       required: true,
     },
