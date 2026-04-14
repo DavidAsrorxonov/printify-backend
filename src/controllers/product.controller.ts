@@ -5,6 +5,7 @@ import {
   getProductByIdService,
   getProductService,
 } from "../services/product.service";
+import { productIdSchema } from "../validators/product.validator";
 
 export const getProductsController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -18,8 +19,7 @@ export const getProductsController = asyncHandler(
 
 export const getProductByIdController = asyncHandler(
   async (req: Request, res: Response) => {
-    const params = req.params;
-    const id = params.id as string;
+    const { id } = productIdSchema.parse(req.params);
     const data = await getProductByIdService(id);
     return res.status(HTTP_STATUS.OK).json({
       message: "Product fetched successfully.",
